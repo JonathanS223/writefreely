@@ -4,6 +4,7 @@
 		<meta name="monetization" content="{{.DisplayMonetization}}" />
 	{{- end}}
 	{{if .Verification -}}
+      <meta name="fediverse:creator" content="{{.Verification}}">
 		<link rel="me" href="{{.Verification}}" />
 	{{- end}}
 {{end}}
