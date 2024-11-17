@@ -3,9 +3,55 @@
 	{{if .Monetization -}}
 		<meta name="monetization" content="{{.DisplayMonetization}}" />
 	{{- end}}
+
 	{{if .Verification -}}
-      <meta name="fediverse:creator" content="{{.Verification}}">
 		<link rel="me" href="{{.Verification}}" />
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to convert URL into the desired format
+        function convertUrl(url) {
+            // Remove 'https://' or 'http://' from the beginning of the URL
+            const cleanUrl = url.replace(/^https?:\/\//, "");
+            
+            // Split the cleaned URL by "/"
+            const parts = cleanUrl.split("/");
+            
+            // Extract the username with @ (last part of the URL)
+            const usernameWithAt = parts[parts.length - 1]; 
+            const username = usernameWithAt.substring(1); // Remove the "@"
+            
+            // Get the base URL without the username part
+            const baseUrl = parts.slice(0, parts.length - 1).join("/"); 
+            
+            // Return the formatted result like "@username@baseurl"
+            const result = `@${username}@${baseUrl}`;
+            return result;
+        }
+
+        // Example URL
+        const url = "{{.Verification}}";
+        
+        // Call the function and store the result in a variable
+        const convertedUrl = convertUrl(url);
+        
+        // Log the result to confirm the URL is being processed correctly
+        console.log("Converted URL:", convertedUrl);
+
+        // Create a new meta tag
+        const metaTag = document.createElement('meta');
+        metaTag.setAttribute('name', 'fediverse:creator');
+        metaTag.setAttribute('content', convertedUrl);
+
+        // Append the new meta tag to the <head> section
+        document.head.appendChild(metaTag);
+
+        // Log to confirm that the meta tag has been added
+        console.log("Meta tag created and added with content:", metaTag.getAttribute('content'));
+    });
+</script>
+
+
 	{{- end}}
 {{end}}
 
