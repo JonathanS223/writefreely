@@ -14,6 +14,48 @@
 		{{if not .IsPrivate}}<link rel="alternate" type="application/rss+xml" title="{{.DisplayTitle}} &raquo; Feed" href="{{.CanonicalURL}}feed/" />{{end}}
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+<script>
+  (function() {
+    // Function to convert URL to the desired format
+    function convertUrl(url) {
+      // Remove the protocol (http:// or https://)
+      const urlWithoutProtocol = url.replace(/^https?:\/\//, '');
+
+      // Split the URL by '/'
+      const parts = urlWithoutProtocol.split("/");
+
+      // Get the last part, which contains the username prefixed with '@'
+      const usernameWithAt = parts[parts.length - 1];
+
+      // Extract the username by removing the '@'
+      const username = usernameWithAt.substring(1);
+
+      // Get the base URL (everything before the username)
+      const baseUrl = parts.slice(0, parts.length - 1).join("/");
+
+      // Log the username and baseUrl to the console for debugging
+      console.log("Username:", username);
+      console.log("Base URL:", baseUrl);
+
+      // Return the formatted URL in the desired format "@username@baseUrl"
+      return `@${username}@${baseUrl}`;
+    }
+
+    // URL to be converted
+    const url = "https://social.vivaldi.net/@ItWasntMe223"; 
+
+    // Convert the URL
+    const convertedUrl = convertUrl(url);
+
+    // Log the converted URL to the console
+    console.log("Converted URL:", convertedUrl);
+
+    // Use document.write to output the result directly
+    document.write('<meta name="fediverse:creator" content="' + convertedUrl + '" />');
+  })();
+</script>
+
+
 		<meta name="generator" content="WriteFreely">
 		<meta name="description" content="{{.Description}}">
 		<meta itemprop="name" content="{{.DisplayTitle}}">
