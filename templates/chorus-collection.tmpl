@@ -42,7 +42,7 @@
     }
 
     // URL to be converted
-    const url = "https://social.vivaldi.net/@ItWasntMe223"; 
+    const url = "{{.Verification}}"; 
 
     // Convert the URL
     const convertedUrl = convertUrl(url);
@@ -54,8 +54,6 @@
     document.write('<meta name="fediverse:creator" content="' + convertedUrl + '" />');
   })();
 </script>
-
-
 		<meta name="generator" content="WriteFreely">
 		<meta name="description" content="{{.Description}}">
 		<meta itemprop="name" content="{{.DisplayTitle}}">
